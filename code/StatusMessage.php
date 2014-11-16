@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @method static StatusMessage create($content, $type, $title, $timeOut, $extendedTimeOut)
+ */
 class StatusMessage extends ViewableData implements JsonSerializable {
 
     protected $Title           = "";
@@ -14,10 +17,6 @@ class StatusMessage extends ViewableData implements JsonSerializable {
      * Some attributes are calculated on the fly, so please use {@link getAttributes()} to access them.
      */
     protected $attributes = array();
-
-    public static function create($content, $type = null, $title = null, $timeOut = null, $extendedTimeOut = null) {
-        return parent::create($content, $type, $title, $timeOut, $extendedTimeOut);
-    }
 
     public static function info($content, $title = null, $timeOut = null, $extendedTimeOut = null) {
         return parent::create($content, StatusMessageTypes::INFO, $title, $timeOut, $extendedTimeOut);
