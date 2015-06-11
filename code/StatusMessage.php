@@ -3,7 +3,7 @@
 /**
  * @method static StatusMessage create($content, $type, $title, $timeOut, $extendedTimeOut)
  */
-class StatusMessage extends ViewableData implements JsonSerializable {
+class StatusMessage extends ViewableData { //  implements JsonSerializable {
 
     protected $Title           = "";
     protected $Type            = "";
