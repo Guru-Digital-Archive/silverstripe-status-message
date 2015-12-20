@@ -3,7 +3,9 @@
 /**
  * @method static StatusMessage create($content, $type, $title, $timeOut, $extendedTimeOut)
  */
-class StatusMessage extends ViewableData { //  implements JsonSerializable {
+class StatusMessage extends ViewableData
+{
+    //  implements JsonSerializable {
 
     protected $Title           = "";
     protected $Type            = "";
@@ -18,27 +20,33 @@ class StatusMessage extends ViewableData { //  implements JsonSerializable {
      */
     protected $attributes = array();
 
-    public static function info($content, $title = null, $timeOut = null, $extendedTimeOut = null) {
+    public static function info($content, $title = null, $timeOut = null, $extendedTimeOut = null)
+    {
         return parent::create($content, StatusMessageTypes::INFO, $title, $timeOut, $extendedTimeOut);
     }
 
-    public static function warning($content, $title = null, $timeOut = null, $extendedTimeOut = null) {
+    public static function warning($content, $title = null, $timeOut = null, $extendedTimeOut = null)
+    {
         return parent::create($content, StatusMessageTypes::WARNING, $title, $timeOut, $extendedTimeOut);
     }
 
-    public static function success($content, $title = null, $timeOut = null, $extendedTimeOut = null) {
+    public static function success($content, $title = null, $timeOut = null, $extendedTimeOut = null)
+    {
         return parent::create($content, StatusMessageTypes::SUCCESS, $title, $timeOut, $extendedTimeOut);
     }
 
-    public static function danger($content, $title = null, $timeOut = null, $extendedTimeOut = null) {
+    public static function danger($content, $title = null, $timeOut = null, $extendedTimeOut = null)
+    {
         return parent::create($content, StatusMessageTypes::DANGER, $title, $timeOut, $extendedTimeOut);
     }
 
-    public static function loading($content, $title = null, $timeOut = null, $extendedTimeOut = null) {
+    public static function loading($content, $title = null, $timeOut = null, $extendedTimeOut = null)
+    {
         return parent::create($content, StatusMessageTypes::LOADING, $title, $timeOut, $extendedTimeOut);
     }
 
-    public function __construct($content, $type = null, $title = null, $timeOut = null, $extendedTimeOut = null) {
+    public function __construct($content, $type = null, $title = null, $timeOut = null, $extendedTimeOut = null)
+    {
         parent::__construct();
         $this->Title = $title;
         if (is_bool($type) || is_numeric($type)) {
@@ -51,23 +59,28 @@ class StatusMessage extends ViewableData { //  implements JsonSerializable {
         $this->ExtendedTimeOut = $extendedTimeOut;
     }
 
-    public function getTitle() {
+    public function getTitle()
+    {
         return $this->Title;
     }
 
-    public function getType() {
+    public function getType()
+    {
         return $this->Type;
     }
 
-    public function getTypeForForm() {
+    public function getTypeForForm()
+    {
         return StatusMessageTypes::forForm($this->Type);
     }
 
-    public function getContent() {
+    public function getContent()
+    {
         return $this->Content;
     }
 
-    public function getContentForForm() {
+    public function getContentForForm()
+    {
         $result = "";
         if ($this->Title) {
             $result = "<h1 class='form-title'>" . $this->Title . "</h1>" . PHP_EOL;
@@ -82,49 +95,59 @@ class StatusMessage extends ViewableData { //  implements JsonSerializable {
      * @param Form $form
      * @return StatusMessage
      */
-    public function addToForm(Form $form) {
+    public function addToForm(Form $form)
+    {
         $form->setMessage($this->getContentForForm(), $this->getTypeForForm());
         return $this;
     }
 
-    public function getTimeOut() {
+    public function getTimeOut()
+    {
         return $this->TimeOut;
     }
 
-    public function getExtendedTimeOut() {
+    public function getExtendedTimeOut()
+    {
         return $this->ExtendedTimeOut;
     }
 
-    public function setTitle($Title) {
+    public function setTitle($Title)
+    {
         $this->Title = $Title;
         return $this;
     }
 
-    public function setType($Type) {
+    public function setType($Type)
+    {
         $this->Type = $Type;
         return $this;
     }
 
-    public function setContent($Content) {
+    public function setContent($Content)
+    {
         $this->Content = $Content;
         return $this;
     }
 
-    public function setTimeOut($TimeOut) {
+    public function setTimeOut($TimeOut)
+    {
         $this->TimeOut = $TimeOut;
         return $this;
     }
 
-    public function setExtendedTimeOut($ExtendedTimeOut) {
+    public function setExtendedTimeOut($ExtendedTimeOut)
+    {
         $this->ExtendedTimeOut = $ExtendedTimeOut;
         return $this;
     }
 
-    public function forTemplate() {
+    public function forTemplate()
+    {
         return $this->renderWith(__CLASS__);
     }
 
-    public function jsonSerialize() {
+    public function jsonSerialize()
+    {
         return (object) array("content" => $this->Content, "title" => $this->Title, "type" => $this->getTypeForForm(), "orignalType" => $this->Type);
     }
 
@@ -133,7 +156,8 @@ class StatusMessage extends ViewableData { //  implements JsonSerializable {
      *
      * @return string
      */
-    public function extraClass() {
+    public function extraClass()
+    {
         return implode(array_unique(array_merge(array("status-message", "alert", "alert-" . $this->getType()), $this->extraClasses)), ' ');
     }
 
@@ -144,7 +168,8 @@ class StatusMessage extends ViewableData { //  implements JsonSerializable {
      * @param string $class A string containing a classname or several class
      * 				names delimited by a single space.
      */
-    public function addExtraClass($class) {
+    public function addExtraClass($class)
+    {
         //split at white space
         $classes = preg_split('/\s+/', $class);
         foreach ($classes as $class) {
@@ -160,7 +185,8 @@ class StatusMessage extends ViewableData { //  implements JsonSerializable {
      *
      * @param string $class
      */
-    public function removeExtraClass($class) {
+    public function removeExtraClass($class)
+    {
         //split at white space
         $classes = preg_split('/\s+/', $class);
         foreach ($classes as $class) {
@@ -177,7 +203,8 @@ class StatusMessage extends ViewableData { //  implements JsonSerializable {
      * If at least one argument is passed as a string, all arguments act as excludes by name.
      * @return String HTML attributes, ready for insertion into an HTML tag
      */
-    public function getAttributesHTML($attrs = null) {
+    public function getAttributesHTML($attrs = null)
+    {
         $exclude = (is_string($attrs)) ? func_get_args() : null;
 
         if (!$attrs || is_string($attrs)) {
@@ -205,7 +232,8 @@ class StatusMessage extends ViewableData { //  implements JsonSerializable {
      * @param String
      * @param String
      */
-    public function setAttribute($name, $value) {
+    public function setAttribute($name, $value)
+    {
         $this->attributes[$name] = $value;
         return $this;
     }
@@ -213,13 +241,15 @@ class StatusMessage extends ViewableData { //  implements JsonSerializable {
     /**
      * @return String
      */
-    public function getAttribute($name) {
+    public function getAttribute($name)
+    {
         if (isset($this->attributes[$name])) {
             return $this->attributes[$name];
         }
     }
 
-    public function getAttributes() {
+    public function getAttributes()
+    {
         $attrs = array(
             'data-status-type'    => $this->getType(),
             'data-status-content' => $this->getContent(),
@@ -232,7 +262,8 @@ class StatusMessage extends ViewableData { //  implements JsonSerializable {
         return array_merge($attrs, $this->attributes);
     }
 
-    public static function AddIncludes() {
+    public static function AddIncludes()
+    {
         if (Config::inst()->get('StatusMessage', 'UseDefaultCSS')) {
             Requirements::css('silverstripe-status-message/javascript/thirdparty/toastr/toastr.css');
         }
@@ -240,10 +271,10 @@ class StatusMessage extends ViewableData { //  implements JsonSerializable {
         Requirements::javascript(FRAMEWORK_DIR . '/thirdparty/jquery/jquery.js');
         Requirements::javascript('silverstripe-status-message/javascript/dist/silverstripe-status-message.js');
     }
-
 }
 
-class StatusMessageTypes {
+class StatusMessageTypes
+{
 
     const SUCCESS = "success";
     const DANGER  = "danger";
@@ -251,7 +282,8 @@ class StatusMessageTypes {
     const LOADING = "loading";
     const WARNING = "warning";
 
-    public static function forForm($type) {
+    public static function forForm($type)
+    {
         $result = "bad";
         switch ($type) {
             case StatusMessageTypes::SUCCESS:
@@ -271,5 +303,4 @@ class StatusMessageTypes {
         }
         return $result;
     }
-
 }
