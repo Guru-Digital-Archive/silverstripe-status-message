@@ -3,10 +3,11 @@
 /**
  *
  */
-class StatusMessageControllerExtension extends Extension {
+class StatusMessageControllerExtension extends Extension
+{
 
-    public function onBeforeInit() {
+    public function onBeforeInit()
+    {
         StatusMessage::AddIncludes();
     }
-
 }
